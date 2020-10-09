@@ -4,7 +4,10 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "ytdl-core": "^3.3.0"
+    "dotenv": "^8.2.0",
+    "google-auth-library": "^6.1.1",
+    "googleapis": "^61.0.0",
+    "youtube-mp3-downloader": "^0.7.3"
   },
   "devDependencies": {
     "electron": "^10.1.3"

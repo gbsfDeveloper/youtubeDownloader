@@ -1,17 +1,30 @@
-const fs = require('fs');
-const ytdl = require('ytdl-core');
+const {google} = require('googleapis');
+const clave_API_YT = 'AIzaSyCQVQLfjrfrEm7rCvtLwyAp2HRuvJRIWD0';
+// downloadVideo.download("_U46oCEEvD0");
 
-const URL = "http://www.youtube.com/watch?v=A02s8omM_hI";
+const videos = google.youtube({
+    version:'v3',
+    auth:clave_API_YT
+})
 
-function downloadVideo(URL){
-    if(ytdl.validateURL(URL)){
-        ytdl(URL,{ quality: 'highestaudio'})
-        .pipe(fs.createWriteStream('video.mp4'));
-    }
-    else{
-        console.log("ENlace no valido");
+async function searchVideos(){
+
+    const foundVideos = await videos.search.list({
+        q:'nirvana',
+        part:'id,snippet',
+        maxResults:15
+    });
+
+    for (const [key,value] of Object.entries(foundVideos.data.items)) {
+        if (value.id.kind === "youtube#video") {
+            console.log("------------------------------------------------------------------------------------------------------");
+            console.log(value.id.videoId);
+            console.log(value.snippet.title);
+            console.log(value.snippet.description);
+            console.log(value.snippet.thumbnails.default.url);
+            
+        }
     }
 }
 
-
-downloadVideo(URL);
+searchVideos();
