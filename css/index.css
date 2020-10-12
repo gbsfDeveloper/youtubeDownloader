@@ -1,5 +1,5 @@
 html{
-    font-size: 100%;  
+    font-size: 12px;  
     font-family: 'Roboto Mono', monospace;
 }
 
@@ -10,6 +10,7 @@ body{
     height: 100vh; 
     background-image: linear-gradient(to right , #00bbff , #7cdbfe);
     display: flex;
+    flex-direction: column;
     justify-content: stretch;
 }
 
@@ -34,6 +35,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 #inputSearch{
@@ -67,18 +69,17 @@ body{
 
 #searchResult{
     margin: 0;
-    width: 0%;
-    height: 100%;
+    padding-top: 1rem;
+    width: 100%;
+    height: 50%;
     background-color: lightcyan;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: auto;
 }
-/* 
-#loadBar{
-
-} */
 
 @media (max-width: 320px) { 
     body{
