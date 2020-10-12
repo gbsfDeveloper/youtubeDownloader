@@ -10,25 +10,7 @@ function YTSetup(videoID,ffmpegPath="./tools/ffmpeg/bin/ffmpeg.exe",downloadRout
         "allowWebm": false                      // Enable download from WebM sources (default: false)
     });
     return YD;
-    // YD.download(videoID);
-    
-    // YD.on("finished", function(err, data) {
-    //     if (err) {
-    //         console.log(JSON.stringify(err));
-    //     } else {
-    //         console.log(JSON.stringify(data));
-    //     }
-    // });
-    
-    // YD.on("error", function(error) {
-    //     console.log(error);
-    // });
-    
-    // YD.on("progress", function(progress) {
-    //     console.log(JSON.stringify(progress));
-    // });
 }
-
 
 module.exports ={
     "settings":YTSetup
