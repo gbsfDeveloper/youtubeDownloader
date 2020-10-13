@@ -28,8 +28,12 @@ ipcMain.on('mensaje-asincrono', (event, arg) => {
 })
 
 ipcMain.on('download', (event, arg) => {
-	console.log(parseInt(arg.progress.percentage));
+	console.log();
 	// event.sender.send('progress',parseInt(arg.progress.percentage));
+})
+
+ipcMain.on('error', (event, error) => {
+	console.log(error);
 })
 
 ipcMain.on('showDialog',(event,arg) =>{
@@ -76,7 +80,11 @@ ipcMain.on('selectFolder',(event,arg) =>{
 	}).then((folder) => {
 		if (!folder.canceled) {
 			console.log(folder.filePaths.toString());
+			event.sender.send('folderPath',folder.filePaths.toString());
+		}else{
+			dialog.showErrorBox(
+				"Ruta no especificada","Debes asignar una ruta donde guardar tus mp3 , la ruta por defecto es la carpeta \"downloads\" en el proyecto"
+			)
 		}
 	});
-
 });

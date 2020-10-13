@@ -1,6 +1,6 @@
 var YoutubeMp3Downloader = require("youtube-mp3-downloader");
 
-function YTSetup(videoID,ffmpegPath="./tools/ffmpeg/bin/ffmpeg.exe",downloadRoute = "./tools") {
+function YTSetup(videoID,ffmpegPath="./tools/ffmpeg/bin/ffmpeg.exe",downloadRoute = "../downloads") {
     var YD = new YoutubeMp3Downloader({
         "ffmpegPath": ffmpegPath,        // FFmpeg binary location
         "outputPath": downloadRoute,    // Output file location (default: the home directory)

@@ -50,12 +50,15 @@ DOM.search_button.on('click', async ()=>{
 		// ipcRenderer.send('mensaje-asincrono', 'video encontrado');
 		DOM.search_result.append(generateCard(title,description,url,idVIdeo))
 		$(`#${idVIdeo}`).on('click',()=>{
-			// ipcRenderer.send('download', idVIdeo);
+			ipcRenderer.send('download', idVIdeo);
 			let YTDownload = settings(idVIdeo);
 			YTDownload.download(idVIdeo);
 			YTDownload.on("progress", function(progress) {
 				$(`#vid_${idVIdeo}`).text("%" + parseInt(JSON.stringify(progress.progress.percentage)));
 				$(`#vid_${idVIdeo}`).css("width",`${parseInt(JSON.stringify(progress.progress.percentage))}%`);
+			});
+			YTDownload.on("error", function(err) {
+				ipcRenderer.send('error',err);
 			});
 
 		});
@@ -64,4 +67,8 @@ DOM.search_button.on('click', async ()=>{
 
 DOM.folderButton.on('click',(event) =>{
 	ipcRenderer.send('selectFolder', 'Llego?');
+});
+
+ipcRenderer.on('folderPath', (event, path) => {
+    console.log(path);
 });
