@@ -63,28 +63,5 @@ DOM.search_button.on('click', async ()=>{
 });
 
 DOM.folderButton.on('click',(event) =>{
-	ipcRenderer.send('showDialog', 'Llego?');
-	// dialog.showSaveDialog({
-	// 	title:'Donde quieres guardar tu archivo',
-	// 	defaultPath: path.join(__dirname,'./downloads/sample.mp3'),
-	// 	buttonLabel:'Guardar',
-	// 	filters:[
-	// 		{
-	// 			name:'MP3 files',
-	// 			extensions:['mp3']
-	// 		}
-	// 	],
-	// 	properties:[]
-	// }).then((file)=>{
-	// 	console.log(file.canceled);
-	// 	if (!file.canceled) {
-	// 		console.log(file.filePath.toString());
-	// 		fs.writeFile(file.filePath.toString(),'asdasdasd',(err)=>{
-	// 			if (err) {
-	// 				throw err;
-	// 			}
-	// 			console.log('Saved!');
-	// 		});
-	// 	}
-	// });
+	ipcRenderer.send('selectFolder', 'Llego?');
 });
