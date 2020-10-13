@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/index.css">
-        <link rel="stylesheet" href="./css/card.css">
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/card.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> 
         <title>Descarga YouTube SFLM </title>
         
@@ -12,7 +12,7 @@
         <script>if(typeof(module) === 'object'){window.module = module; module = 'undefined';}</script>
 
         <!-- normal script imports etc  -->
-        <script src="./tools/jquery-3.5.1.js"></script>
+        <script src="../tools/jquery-3.5.1.js"></script>
         
         <!-- Insert this line after script imports -->
         <script>if(window.module){ module = window.module}</script>
@@ -21,14 +21,15 @@
     <body>
         <div id="container">
             <div id="searchSection">
-                <h2>Descarga Canciones</h2>
+                <!-- <h2>Descarga Canciones</h2> -->
                 <input id="inputSearch" type="text" placeholder="Busqueda Musica">
-                <button id="buttonSearch">Buscar</button>
+                <button class="button" id="buttonSearch">Buscar</button>
+                <button class="button" id="folderButton">Folder</button>
             </div>
         </div>
         <div id="searchResult">
 
         </div>
-        <script type="module" src="./js/app.js"></script>
+        <script src="./app.js"></script>
     </body>
 </html>

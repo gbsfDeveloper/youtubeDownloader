@@ -47,7 +47,7 @@ body{
     font-size: 1em;
 }
 
-#buttonSearch{
+.button{
     width: 20%;
     margin-top: 1rem;
     padding: 1rem;
@@ -57,11 +57,11 @@ body{
     outline: none;
 }
 
-#buttonSearch:focus{
+.button:focus{
     transition: 0.4s;
 }
 
-#buttonSearch:hover{
+.button:hover{
     background-color: #2c68a7;
     border: none;
     cursor: pointer;
