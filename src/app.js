@@ -2,17 +2,17 @@ let {DOM} = require('./DOMElements');// la ruta se toma desde el index.html
 let {searchVideos} = require("../search.js");
 let {settings} = require("../download.js");
 const {ipcRenderer} = require('electron');
+let defaultDownloadPath = "../downloads";
 
-ipcRenderer.on('respuesta-asincrona', (event, arg) => {
-    console.log(arg) // imprime "pong"
-	DOM.search_input.val(arg);
+DOM.folderButton.on('click',(event) =>{
+	ipcRenderer.send('selectFolder', 'Llego?');
 });
 
-// ipcRenderer.on('progress', (event, arg) => {
-// 	DOM.search_input.val(arg);
-// });
+ipcRenderer.on('folderPath', (event, path) => {
+    defaultDownloadPath = path;
+});
 
-ipcRenderer.send('mensaje-asincrono', 'ping');
+ipcRenderer.send('selectFolder');
 
 function generateCard(title,description,imageURL,videoID) {
 	let foundedCard = $(`
@@ -38,7 +38,6 @@ function generateCard(title,description,imageURL,videoID) {
 }
 
 DOM.search_button.on('click', async ()=>{
-	console.log('hey');
 	let videoLIST = await searchVideos(DOM.search_input.val());
 	DOM.search_result.empty();
 	for (const [key,video] of Object.entries(videoLIST)) {
@@ -50,8 +49,10 @@ DOM.search_button.on('click', async ()=>{
 		// ipcRenderer.send('mensaje-asincrono', 'video encontrado');
 		DOM.search_result.append(generateCard(title,description,url,idVIdeo))
 		$(`#${idVIdeo}`).on('click',()=>{
-			ipcRenderer.send('download', idVIdeo);
-			let YTDownload = settings(idVIdeo);
+			// ipcRenderer.send('download', idVIdeo);
+			let YTDownload = settings(idVIdeo,defaultDownloadPath);
+			console.log(idVIdeo);
+			console.log(YTDownload);
 			YTDownload.download(idVIdeo);
 			YTDownload.on("progress", function(progress) {
 				$(`#vid_${idVIdeo}`).text("%" + parseInt(JSON.stringify(progress.progress.percentage)));
@@ -60,15 +61,7 @@ DOM.search_button.on('click', async ()=>{
 			YTDownload.on("error", function(err) {
 				ipcRenderer.send('error',err);
 			});
-
 		});
 	}
 });
 
-DOM.folderButton.on('click',(event) =>{
-	ipcRenderer.send('selectFolder', 'Llego?');
-});
-
-ipcRenderer.on('folderPath', (event, path) => {
-    console.log(path);
-});

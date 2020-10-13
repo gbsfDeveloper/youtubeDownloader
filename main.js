@@ -3,6 +3,7 @@ const {download} = require("./download.js");
 const fs = require('fs');
 var path = require('path');
 var ffmpegPath = path.join(__dirname, '.', '/tools/ffmpeg/bin/ffmpeg.exe');
+var folderDefaultPath = path.join(__dirname, '.', '/downloads');
 
 function createWindow () {
 	// Create the browser window.
@@ -22,13 +23,8 @@ function createWindow () {
 
 app.whenReady().then(createWindow);
 
-ipcMain.on('mensaje-asincrono', (event, arg) => {
-	console.log(arg);
-	event.sender.send('respuesta-asincrona', 'Cancion');
-})
-
 ipcMain.on('download', (event, arg) => {
-	console.log();
+	console.log(arg);
 	// event.sender.send('progress',parseInt(arg.progress.percentage));
 })
 
@@ -39,7 +35,7 @@ ipcMain.on('error', (event, error) => {
 ipcMain.on('showDialog',(event,arg) =>{
 
 	console.log('Llego');
-	// dialog.showSaveDialog({
+	// dialgit statusog.showSaveDialog({
 	// 	title:'Donde quieres guardar tu archivo',
 	// 	defaultPath: path.join(__dirname,'./downloads/sample.mp3'),
 	// 	buttonLabel:'Guardar',
@@ -63,7 +59,6 @@ ipcMain.on('showDialog',(event,arg) =>{
 	// 	}
 	// });
 
-	
 });
 
 ipcMain.on('selectFolder',(event,arg) =>{
@@ -79,12 +74,14 @@ ipcMain.on('selectFolder',(event,arg) =>{
 		
 	}).then((folder) => {
 		if (!folder.canceled) {
-			console.log(folder.filePaths.toString());
+			// console.log(folder.filePaths.toString());
 			event.sender.send('folderPath',folder.filePaths.toString());
 		}else{
 			dialog.showErrorBox(
-				"Ruta no especificada","Debes asignar una ruta donde guardar tus mp3 , la ruta por defecto es la carpeta \"downloads\" en el proyecto"
+				"Ruta no especificada",
+				"Debes asignar una ruta donde guardar tus mp3 , la ruta por defecto es la carpeta \"downloads\" en el proyecto"
 			)
+			event.sender.send('folderPath', folderDefaultPath);
 		}
 	});
 });
