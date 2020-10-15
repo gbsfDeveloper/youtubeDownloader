@@ -25,7 +25,6 @@ app.whenReady().then(createWindow);
 
 ipcMain.on('download', (event, arg) => {
 	console.log(arg);
-	// event.sender.send('progress',parseInt(arg.progress.percentage));
 })
 
 ipcMain.on('error', (event, error) => {
@@ -74,7 +73,6 @@ ipcMain.on('selectFolder',(event,arg) =>{
 		
 	}).then((folder) => {
 		if (!folder.canceled) {
-			// console.log(folder.filePaths.toString());
 			event.sender.send('folderPath',folder.filePaths.toString());
 		}else{
 			dialog.showErrorBox(
