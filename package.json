@@ -5,8 +5,10 @@
   "main": "main.js",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "google-auth-library": "^6.1.1",
     "googleapis": "^61.0.0",
+    "node-fetch": "^2.6.1",
     "youtube-mp3-downloader": "^0.7.3"
   },
   "devDependencies": {
