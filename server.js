@@ -4,7 +4,6 @@ const fetch = require("node-fetch");
 // settings
 server.set('port','4000');
 
-
 // Routes
 server.get("/",(req,res) => {
     res.send("perrin")
@@ -31,6 +30,7 @@ server.get("/video/:video_id",(req,res) => {
             let regex1 = /(?<=<a href=")(.*?)(?=\")/g; 
             let matches = data.match(regex1);
             var MP3urlsArray = {};
+            // console.log(matches);
             for (let url of matches) {
                 let regex2 = new RegExp(`(?<=https:\/\/www.yt-download.org\/download\/${videoID}\/mp3\/)(.*?)(?=\/)`, 'g')
                 let quality_match = url.match(regex2);
@@ -43,6 +43,10 @@ server.get("/video/:video_id",(req,res) => {
     else{
         res.send("Debes mandar un ID de un video");
     }
+});
+
+server.get("/test",(req,res) => {
+    res.send("Comunicacion correcta");
 });
 
 const port = server.get('port');

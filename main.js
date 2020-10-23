@@ -1,11 +1,12 @@
-const { ipcMain, app, BrowserWindow, dialog} = require('electron')
+const { ipcRenderer,ipcMain, app, BrowserWindow, dialog} = require('electron')
 const {download} = require("./download.js");
 require('./server');
 const fs = require('fs');
 var path = require('path');
+const fetch = require("node-fetch");
 var ffmpegPath = path.join(__dirname, '.', '/tools/ffmpeg/bin/ffmpeg.exe');
 var folderDefaultPath = path.join(__dirname, '.', '/downloads');
-
+var actualWindow = "";
 function createWindow () {
 	// Create the browser window.
 	const win = new BrowserWindow({
@@ -18,9 +19,29 @@ function createWindow () {
 })
 
 	// and load the index.html of the app.
-	win.loadFile('./src/index.html')
+	// win.loadFile('./src/index.html')
+	win.loadURL('https://www.youtube.com/');
+	// win.webContents.on('did-finish-load', ()=>{
+	// 	fs.readFile('./test.js', 'utf8', function(err, data){ 
+	// 		let code = data;
+	// 		win.webContents.executeJavaScript(code);
+	// 	}); 
+	// });
 	win.webContents.openDevTools();
+	actualWindow = win;
+	console.log(win.webContents.getURL());
 }
+
+setInterval(() => {
+	actualWindow.webContents.on('did-finish-load', ()=>{
+		fs.readFile('./test.js', 'utf8', function(err, data){ 
+			let code = data;
+			actualWindow.webContents.executeJavaScript(code);
+		}); 
+	});
+	let URL = actualWindow.webContents.getURL();
+	console.log(URL);
+}, 5000);
 
 app.whenReady().then(createWindow);
 
