@@ -10,13 +10,13 @@ var actualWindow = 'undefined';
 function createWindow () {
 	// Create the browser window.
 	const win = new BrowserWindow({
-    width: 1200,
-    height: 720,
-    webPreferences: {
-		nodeIntegration: true
-    },
-	enableRemoteModule:true
-})
+		width: 1200,
+		height: 720,
+		webPreferences: {
+			nodeIntegration: true
+		},
+		enableRemoteModule:true
+	})
 
 	// and load the index.html of the app.
 	// win.loadFile('./src/index.html')
@@ -32,15 +32,16 @@ function createWindow () {
 	console.log(win.webContents.getURL());
 }
 
-setInterval(() => {
-	let URL = actualWindow.webContents.getURL();
-	console.log(URL);
-}, 1000);
+// setInterval(() => {
+// 	let URL = actualWindow.webContents.getURL();
+// 	console.log(URL);
+// }, 1000);
 
 app.whenReady().then(createWindow);
 
-ipcMain.on('download', (event, arg) => {
-	console.log(arg);
+ipcMain.on('getURL', (event, arg) => {
+	let URL = actualWindow.webContents.getURL();
+	event.sender.send('actualURL', URL);
 })
 
 ipcMain.on('error', (event, error) => {
